@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>La Maria Open Status</title>
+  <style>
+    body {
+      font-family: sans-serif;
+      text-align: center;
+      padding: 20px;
+    }
+    .status {
+      font-size: 2em;
+      font-weight: bold;
+    }
+    .open {
+      color: green;
+    }
+    .closed {
+      color: red;
+    }
+    .hours {
+      margin-top: 10px;
+      font-size: 1em;
+    }
+  </style>
+</head>
+<body>
+  <div id="open-status" class="status"></div>
+  <div class="hours" id="today-hours"></div>
+
+  <script>
+    const hours = {
+      0: null,
+      1: { open: 11, close: 20 },
+      2: { open: 11, close: 20 },
+      3: { open: 11, close: 20 },
+      4: { open: 11, close: 20 },
+      5: { open: 11, close: 20 },
+      6: { open: 11, close: 20 }
+    };
+
+    const now = new Date();
+    const day = now.getDay();
+    const hour = now.getHours();
+
+    const statusDiv = document.getElementById('open-status');
+    const hoursDiv = document.getElementById('today-hours');
+    const today = hours[day];
+
+    if (!today) {
+      statusDiv.textContent = "Closed Today";
+      statusDiv.classList.add("closed");
+    } else {
+      hoursDiv.textContent = `Today's Hours: ${today.open}:00 AM – ${today.close - 12}:00 PM`;
+      if (hour >= today.open && hour < today.close) {
+        statusDiv.textContent = "OPEN NOW!";
+        statusDiv.classList.add("open");
+      } else {
+        statusDiv.textContent = "Closed";
+        statusDiv.classList.add("closed");
+      }
+    }
+  </script>
+</body>
+</html>
